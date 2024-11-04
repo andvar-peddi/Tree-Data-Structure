@@ -13,7 +13,7 @@ namespace Tree
         {
             var nodesList = new List<Node<Point>>()
             {
-                new Node<Point>(new Point(0, 0)),
+                new Node<Point>(new Point(5, 5)),
                 new Node<Point>(new Point(-2, 2)),
                 new Node<Point>(new Point(-1, 2)),
                 new Node<Point>(new Point(1, 2)),
@@ -21,37 +21,31 @@ namespace Tree
 
             };
 
-            Node<Point> root = new Node<Point>(new Point(0, 0));
+            Node<Point> root = new Node<Point>(new Point(10, 10));
+            root.AddChild(new Node<Point>(new Point(1, 1)));
+            root.AddChild(new Node<Point>(new Point(2, 2)));
+            root.AddChild(new Node<Point>(new Point(3, 3)));
+            root.AddChild(new Node<Point>(new Point(4, 4)));
 
-            nodesList.ForEach(node => {root.AddChild(node);});
+            foreach (var node in root.Children)
+            {
+                Console.WriteLine(Position.CalculateGlobalPosition(node));
+            }
 
 
-
-
-
-/*            Console.WriteLine(Position.CalculateGlobalPosition(child1));
-            Console.WriteLine(Position.CalculateGlobalPosition(child2));
-            Console.WriteLine(Position.CalculateGlobalPosition(child3));
-
-
-            Console.WriteLine(child1.GetGlobalPosition());
-            Console.WriteLine(child2.GetGlobalPosition());
-            Console.WriteLine(child3.GetGlobalPosition());*/
+            /* root.Traverse(data => Console.WriteLine(Position.CalculateGlobalPosition(data)));
 
 
 
-            /* Point aa = child1.GetGlobalPosition();
-             Point bb = child2_1.GetGlobalPosition();
-
-            /*
-                        List<string> names = new List<string>();
-                        names.Add("Bruce");
-                        names.Add("Alfred");
-                        names.Add("Tim");
-                        names.Add("Richard");
+             /*
+                         List<string> names = new List<string>();
+                         names.Add("Bruce");
+                         names.Add("Alfred");
+                         names.Add("Tim");
+                         names.Add("Richard");
 
 
-                        names.ForEach(s => Console.WriteLine($"my name is {s}"));*/
+                         names.ForEach(s => Console.WriteLine($"my name is {s}"));*/
         }
 
         static void Print(string s)

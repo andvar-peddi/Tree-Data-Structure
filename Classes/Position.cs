@@ -26,5 +26,24 @@ namespace Tree.Classes
             return new Point(parentGlobalPosition.X + currentPoint.X, parentGlobalPosition.Y + currentPoint.Y);
         }
 
+        public static Node<Point>? FindNode(Node<Point> root, Point data)
+        {
+            if (root.Data.Equals(data))
+            {
+                return root;
+            }
+
+            foreach (var child in root.Children)
+            {
+                Node<Point>? foundNode = FindNode(child, data);
+                if (foundNode != null)
+                {
+                    return foundNode;
+                }
+            }
+
+            return null;
+        }
+
     }
 }
