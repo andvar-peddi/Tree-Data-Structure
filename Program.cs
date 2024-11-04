@@ -22,9 +22,9 @@ namespace Tree
             };
 
             Node<Point> root = new Node<Point>(new Point(10, 10));
-            root.AddChild(new Node<Point>(new Point(1, 1)));
-            root.AddChild(new Node<Point>(new Point(2, 2)));
-            root.AddChild(new Node<Point>(new Point(3, 3)));
+            root.AddChild(new Node<Point>(new Point(6, 6)));
+            root.AddChild(new Node<Point>(new Point(9, 9)));
+            root.AddChild(new Node<Point>(new Point(8, 8)));
             root.AddChild(new Node<Point>(new Point(4, 4)));
 
             foreach (var node in root.Children)
@@ -35,15 +35,12 @@ namespace Tree
 
             /* root.Traverse(data => Console.WriteLine(Position.CalculateGlobalPosition(data)));
 
-
-
              /*
                          List<string> names = new List<string>();
                          names.Add("Bruce");
                          names.Add("Alfred");
                          names.Add("Tim");
                          names.Add("Richard");
-
 
                          names.ForEach(s => Console.WriteLine($"my name is {s}"));*/
         }

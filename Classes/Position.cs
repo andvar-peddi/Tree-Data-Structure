@@ -9,41 +9,18 @@ namespace Tree.Classes
 {
     internal class Position
     {
-        public static Point CalculateGlobalPosition<T>(Node<T> node)
+        public static Point CalculateGlobalPosition(Node<Point> node)
         {
-            if (node.Data is not Point currentPoint)
+            if (node is null)
             {
                 return Point.Empty;
             }
 
-            if (node.Parent == null)
-            {
-                return currentPoint;
-            }
+            Point parentGlobalPosition = node.Parent != null 
+                ? CalculateGlobalPosition(node.Parent) 
+                : Point.Empty;
 
-            Point parentGlobalPosition = CalculateGlobalPosition(node.Parent);
-
-            return new Point(parentGlobalPosition.X + currentPoint.X, parentGlobalPosition.Y + currentPoint.Y);
+            return new Point(parentGlobalPosition.X + node.Data.X, parentGlobalPosition.Y + node.Data.Y);
         }
-
-        public static Node<Point>? FindNode(Node<Point> root, Point data)
-        {
-            if (root.Data.Equals(data))
-            {
-                return root;
-            }
-
-            foreach (var child in root.Children)
-            {
-                Node<Point>? foundNode = FindNode(child, data);
-                if (foundNode != null)
-                {
-                    return foundNode;
-                }
-            }
-
-            return null;
-        }
-
     }
 }
