@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Tree.Classes
 {
     internal class Node<T>
     {
-        public Node(T data)
+        public Node(T data, string name = "")
         {
             Data = data;
             Children = new List<Node<T>>();
+            Name = name;
         }
+
+        public string Name { get; set; }
 
         public T Data { get; set; }
 
         public List<Node<T>> Children { get; set; }
 
         public Node<T>? Parent { get; set; }
-
 
         public void AddChild(Node<T> node)
         {
@@ -44,20 +41,39 @@ namespace Tree.Classes
             }
         }
 
-        public Point GetGlobalPosition()
+        public void TraverseUpwards(Action<T> action)
         {
-            if (Data is not Point currentPoint)
-            {
-                return Point.Empty;
-            }
+            action(Data);
 
-            if (Parent == null)
-            {
-                return currentPoint;
-            }
+            Parent?.TraverseUpwards(action);
+        }
 
-            Point parentGlobalPosition = Parent.GetGlobalPosition();
-            return new Point(parentGlobalPosition.X + currentPoint.X, parentGlobalPosition.Y + currentPoint.Y);
+
+        public void DisplayNodes()
+        {
+            Traverse(data =>
+            {
+                if (data is Point point && Position.FindNode(this as Node<Point>, point) is Node<Point> node)
+                {
+                    Point globalPosition = Position.GetGlobalPosition(node);
+                    string spacing = new(' ', node.GetDepth() * 4);
+
+                    Console.WriteLine($"{spacing}Node: {node.Name}, Global Position: {globalPosition}");
+                }
+            });
+        }
+
+        public int GetDepth()
+        {
+            int depth = 0;
+            Node<T> currentNode = this;
+
+            while (currentNode.Parent != null)
+            {
+                currentNode = currentNode.Parent;
+                depth++;
+            }
+            return depth;
         }
     }
 }
